@@ -16,10 +16,10 @@
         }
     </style>
 </head>
-<body class="gradient-hero min-h-screen flex items-center justify-center px-4">
-    <div class="w-full max-w-sm">
+<body class="gradient-hero min-h-screen flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-2xl">
         <!-- Card -->
-        <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-10">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 lg:p-12">
             <!-- Logo & Title -->
             <div class="text-center mb-8">
                 <img src="/images/logo.png" alt="Logo" class="w-14 h-14 object-contain rounded-xl mx-auto mb-4 shadow-sm">

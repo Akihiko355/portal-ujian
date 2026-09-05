@@ -13,7 +13,7 @@
     </div>
 
     <!-- Filters -->
-    <div class="card mb-5">
+    <div class="card mb-5 p-5">
         <form method="GET" class="flex flex-wrap gap-3 items-end">
             <div>
                 <label class="form-label-sm">Urgency</label>

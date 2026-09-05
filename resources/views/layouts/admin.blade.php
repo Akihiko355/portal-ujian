@@ -175,10 +175,10 @@
         function applySidebarState() {
             if (isCollapsed) {
                 sidebar.classList.add('collapsed');
-                mainContent.style.marginLeft = '68px';
+                mainContent.classList.add('sidebar-collapsed');
             } else {
                 sidebar.classList.remove('collapsed');
-                mainContent.style.marginLeft = '240px';
+                mainContent.classList.remove('sidebar-collapsed');
             }
         }
 
