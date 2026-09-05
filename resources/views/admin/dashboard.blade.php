@@ -3,7 +3,6 @@
 @section('content')
 <div class="mb-5">
     <h1 class="text-xl font-bold text-slate-900" id="adminGreeting">Dashboard</h1>
-    <p class="text-sm text-slate-500 mt-0.5">Selamat datang di Portal Ujian</p>
 </div>
 
 <script>

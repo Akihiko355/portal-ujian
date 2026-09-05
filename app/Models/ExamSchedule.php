@@ -71,4 +71,9 @@ class ExamSchedule extends Model
     {
         return $this->hasMany(Score::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('exam_end_datetime', '>=', Carbon::now());
+    }
 }

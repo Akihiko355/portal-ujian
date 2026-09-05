@@ -111,7 +111,9 @@
                 </button>
                 <div id="topbar-greeting" class="text-sm font-semibold text-slate-700">Hai, Super Admin</div>
             </div>
-            <div class="relative">
+            <div class="flex items-center gap-5">
+                <div id="topbar-clock" class="text-xs text-slate-400 font-medium tabular-nums"></div>
+                <div class="relative">
                 <button id="notifBell" class="relative p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                     <span id="notifBadge" class="hidden absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full px-1">0</span>
@@ -164,6 +166,27 @@
             else if (hour >= 18 && hour < 22) greetingText = 'Selamat Malam';
             else greetingText = 'Halo, Night Owl';
             if (greeting) greeting.textContent = greetingText + ', Super Admin';
+        })();
+
+        // Clock & date display
+        (function() {
+            const clock = document.getElementById('topbar-clock');
+            if (!clock) return;
+            function updateClock() {
+                const now = new Date();
+                const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                const jam = String(now.getHours()).padStart(2, '0');
+                const menit = String(now.getMinutes()).padStart(2, '0');
+                const detik = String(now.getSeconds()).padStart(2, '0');
+                const hari = days[now.getDay()];
+                const tanggal = now.getDate();
+                const bulan = months[now.getMonth()];
+                const tahun = now.getFullYear();
+                clock.textContent = jam + ':' + menit + ':' + detik + '  •  ' + hari + ', ' + tanggal + ' ' + bulan + ' ' + tahun;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
         })();
 
         // Sidebar toggle
