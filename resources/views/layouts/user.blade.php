@@ -16,8 +16,9 @@
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <a href="{{ route('user.dashboard') }}" class="text-lg font-bold text-slate-900 tracking-tight">
-                    Portal <span class="text-emerald-600">Ujian</span>
+                <a href="{{ route('user.dashboard') }}" class="flex items-center gap-2">
+                    <img src="/images/logo.png" alt="Logo" class="w-8 h-8 object-contain rounded-lg">
+                    <span class="text-lg font-bold text-slate-900 tracking-tight">Portal <span class="text-emerald-600">Ujian</span></span>
                 </a>
                 <div class="flex items-center gap-1">
                     <!-- Notification Bell -->
@@ -42,6 +43,7 @@
                         <button type="submit" class="btn-ghost text-sm text-red-600 hover:bg-red-50">Logout</button>
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     </nav>
@@ -201,6 +203,24 @@
                 body: JSON.stringify({ broadcast_id: id })
             }).then(() => loadStudentNotifications());
         }
+
+        // Session timeout — logout after 15 min idle
+        let sessionTimeout;
+        const SESSION_TIMEOUT = 15 * 60 * 1000; // 15 minutes
+        function resetSessionTimer() {
+            clearTimeout(sessionTimeout);
+            sessionTimeout = setTimeout(() => {
+                if (confirm('Sesi kamu telah habis karena tidak aktif. Kamu akan dialihkan ke halaman login.')) {
+                    window.location.href = '/user/logout';
+                } else {
+                    resetSessionTimer();
+                }
+            }, SESSION_TIMEOUT);
+        }
+        ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, resetSessionTimer, { passive: true });
+        });
+        resetSessionTimer();
 
         loadStudentNotifications();
         setInterval(loadStudentNotifications, 60000);

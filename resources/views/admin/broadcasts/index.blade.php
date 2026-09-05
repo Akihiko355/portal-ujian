@@ -70,20 +70,20 @@
                                 </td>
                                 <td class="px-4 py-3 hidden md:table-cell">
                                     @if($broadcast->target_type === 'all')
-                                        <span class="badge-secondary text-[10px]">Semua</span>
+                                        <span class="badge-secondary">Semua</span>
                                     @elseif($broadcast->target_type === 'department')
-                                        <span class="badge-info text-[10px]">Dept</span>
+                                        <span class="badge-info">Dept</span>
                                     @else
-                                        <span class="badge-info text-[10px]">Jadwal</span>
+                                        <span class="badge-info">Jadwal</span>
                                     @endif
                                 </td>
                                 <td class="px-4 py-3 hidden sm:table-cell">
                                     @if($broadcast->urgency === 'important')
-                                        <span class="badge-danger text-[10px]">Important</span>
+                                        <span class="badge-danger">Important</span>
                                     @elseif($broadcast->urgency === 'warning')
-                                        <span class="badge-warning text-[10px]">Warning</span>
+                                        <span class="badge-warning">Warning</span>
                                     @else
-                                        <span class="badge-secondary text-[10px]">Info</span>
+                                        <span class="badge-secondary ">Info</span>
                                     @endif
                                 </td>
                                 <td class="px-4 py-3 text-center hidden lg:table-cell">

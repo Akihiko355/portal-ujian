@@ -1,7 +1,22 @@
 @extends('layouts.admin')
 
 @section('content')
-<x-ui.page-header title="Dashboard Admin" />
+<div class="mb-5">
+    <h1 class="text-xl font-bold text-slate-900" id="adminGreeting">Dashboard</h1>
+    <p class="text-sm text-slate-500 mt-0.5">Selamat datang di Portal Ujian</p>
+</div>
+
+<script>
+(function() {
+    const hour = new Date().getHours();
+    let greeting = 'Selamat Pagi';
+    if (hour >= 12 && hour < 15) greeting = 'Selamat Siang';
+    else if (hour >= 15 && hour < 18) greeting = 'Selamat Sore';
+    else if (hour >= 18) greeting = 'Selamat Malam';
+    const name = '{{ Auth::guard('admin')->user()->name ?? 'Super Admin' }}';
+    document.getElementById('adminGreeting').textContent = greeting + ', ' + name;
+})();
+</script>
 
 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
     <x-ui.stat-card label="Departemen" :value="$stats['departments']" color="slate">

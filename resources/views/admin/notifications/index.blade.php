@@ -86,13 +86,13 @@
                                 </div>
                                 <div class="flex items-center gap-1.5 flex-shrink-0">
                                     @if($notification->priority === 'urgent')
-                                        <span class="badge-danger text-[10px]">Urgent</span>
+                                        <span class="badge-danger ">Urgent</span>
                                     @elseif($notification->priority === 'high')
-                                        <span class="badge-danger text-[10px]">High</span>
+                                        <span class="badge-danger ">High</span>
                                     @elseif($notification->priority === 'medium')
-                                        <span class="badge-warning text-[10px]">Medium</span>
+                                        <span class="badge-warning ">Medium</span>
                                     @else
-                                        <span class="badge-secondary text-[10px]">Low</span>
+                                        <span class="badge-secondary ">Low</span>
                                     @endif
                                     @if(!$notification->read_at)
                                         <span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></span>

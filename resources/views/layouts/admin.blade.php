@@ -19,12 +19,12 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="sidebar fixed top-0 left-0 w-60 h-screen bg-slate-900 flex flex-col z-50">
         <!-- Logo -->
-        <div class="px-5 py-4.5 border-b border-white/[0.06]">
+        <div class="sidebar-logo px-5 py-4 border-b border-white/[0.06]">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <img src="/images/logo.png" alt="Logo" class="w-full h-full object-cover rounded-lg">
                 </div>
-                <div>
+                <div class="sidebar-logo-text">
                     <h1 class="text-sm font-bold text-white leading-tight">Portal Ujian</h1>
                     <p class="text-[10px] text-slate-400 font-medium">Admin Panel</p>
                 </div>
@@ -33,7 +33,7 @@
 
         <!-- Navigation -->
         <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-            <div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Menu</div>
+            <div class="sidebar-divider-label px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Menu</div>
             <a href="{{ route('admin.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <svg class="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
                 <span class="sidebar-text">Dashboard</span>
@@ -79,9 +79,9 @@
 
         <!-- User / Logout -->
         <div class="px-3 py-3 border-t border-white/[0.06]">
-            <div class="px-3 py-2 mb-1">
-                <div class="text-xs font-semibold text-white/80 truncate sidebar-text">{{ Auth::guard('admin')->user()->name }}</div>
-                <div class="text-[11px] text-slate-500 truncate sidebar-text">{{ Auth::guard('admin')->user()->email }}</div>
+            <div class="user-info px-3 py-2 mb-1">
+                <div class="text-sm font-semibold text-white/80 truncate sidebar-text">{{ Auth::guard('admin')->user()->name }}</div>
+                <div class="text-xs text-slate-500 truncate sidebar-text">{{ Auth::guard('admin')->user()->email }}</div>
             </div>
             <form method="POST" action="{{ route('admin.logout') }}">
                 @csrf
@@ -105,21 +105,24 @@
 
         <!-- Desktop Topbar -->
         <div class="hidden lg:flex items-center justify-between px-7 py-3 bg-white border-b border-slate-200 sticky top-0 z-20">
-            <div class="text-sm text-slate-400">{{ now()->locale('id')->translatedFormat('l, d F Y') }}</div>
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <button id="notifBell" class="relative p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                        <span id="notifBadge" class="hidden absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full px-1">0</span>
-                    </button>
-                    <div id="notifDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50">
-                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-                            <span class="text-sm font-semibold text-slate-900">Notifikasi</span>
-                            <a href="{{ route('admin.notifications') }}" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
-                        </div>
-                        <div id="notifList" class="max-h-80 overflow-y-auto">
-                            <div class="p-4 text-center text-xs text-slate-400">Memuat...</div>
-                        </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition" title="Toggle Sidebar">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                </button>
+                <div id="topbar-greeting" class="text-sm font-semibold text-slate-700">Hai, Super Admin</div>
+            </div>
+            <div class="relative">
+                <button id="notifBell" class="relative p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    <span id="notifBadge" class="hidden absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full px-1">0</span>
+                </button>
+                <div id="notifDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50">
+                    <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+                        <span class="text-sm font-semibold text-slate-900">Notifikasi</span>
+                        <a href="{{ route('admin.notifications') }}" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
+                    </div>
+                    <div id="notifList" class="max-h-80 overflow-y-auto">
+                        <div class="p-4 text-center text-xs text-slate-400">Memuat...</div>
                     </div>
                 </div>
             </div>
@@ -150,11 +153,34 @@
     </div>
 
     <script>
-        // Sidebar
+        // Greeting based on time of day
+        (function() {
+            const greeting = document.getElementById('topbar-greeting');
+            const hour = new Date().getHours();
+            let greetingText = 'Hai';
+            if (hour >= 5 && hour < 12) greetingText = 'Selamat Pagi';
+            else if (hour >= 12 && hour < 15) greetingText = 'Selamat Siang';
+            else if (hour >= 15 && hour < 18) greetingText = 'Selamat Sore';
+            else if (hour >= 18 && hour < 22) greetingText = 'Selamat Malam';
+            else greetingText = 'Halo, Night Owl';
+            if (greeting) greeting.textContent = greetingText + ', Super Admin';
+        })();
+
+        // Sidebar toggle
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
         const mainContent = document.getElementById('mainContent');
         let isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+        function applySidebarState() {
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.style.marginLeft = '68px';
+            } else {
+                sidebar.classList.remove('collapsed');
+                mainContent.style.marginLeft = '240px';
+            }
+        }
 
         function toggleSidebar() {
             if (window.innerWidth < 1024) {
@@ -162,20 +188,37 @@
                 overlay.classList.toggle('hidden');
             } else {
                 isCollapsed = !isCollapsed;
-                sidebar.classList.toggle('collapsed', isCollapsed);
-                mainContent.style.marginLeft = isCollapsed ? '0' : '240px';
+                applySidebarState();
                 localStorage.setItem('sidebarCollapsed', isCollapsed);
             }
         }
 
-        if (window.innerWidth >= 1024) {
-            if (isCollapsed) {
-                sidebar.classList.add('collapsed');
-                mainContent.style.marginLeft = '0';
-            } else {
-                mainContent.style.marginLeft = '240px';
+        applySidebarState();
+        window.addEventListener('resize', applySidebarState);
+
+        // Session timeout - auto logout after 15 minutes of inactivity
+        (function() {
+            const TIMEOUT_MS = 15 * 60 * 1000; // 15 minutes
+            let lastActivity = Date.now();
+            let timeoutTimer;
+
+            function resetTimer() {
+                lastActivity = Date.now();
+                clearTimeout(timeoutTimer);
+                timeoutTimer = setTimeout(() => {
+                    // Check if user is still logged in
+                    @auth('admin')
+                    window.location.href = '{{ route('admin.logout') }}?timeout=1';
+                    @endauth
+                }, TIMEOUT_MS);
             }
-        }
+
+            ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart', 'click'].forEach(evt => {
+                document.addEventListener(evt, resetTimer, { passive: true });
+            });
+
+            resetTimer();
+        })();
 
         // Toast
         const toastContainer = document.getElementById('toast-container');
@@ -330,6 +373,24 @@
                 })
                 .catch(() => {});
         }
+
+        // Session timeout — logout after 15 min idle
+        let sessionTimeout;
+        const SESSION_TIMEOUT = 15 * 60 * 1000;
+        function resetSessionTimer() {
+            clearTimeout(sessionTimeout);
+            sessionTimeout = setTimeout(() => {
+                if (confirm('Sesi kamu telah habis karena tidak aktif. Kamu akan dialihkan ke halaman login.')) {
+                    window.location.href = '/admin/logout';
+                } else {
+                    resetSessionTimer();
+                }
+            }, SESSION_TIMEOUT);
+        }
+        ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, resetSessionTimer, { passive: true });
+        });
+        resetSessionTimer();
 
         loadNotifications();
         setInterval(loadNotifications, 30000);

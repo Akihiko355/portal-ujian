@@ -8,21 +8,40 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+
+    /* Increase base font sizes globally */
+    html {
+        font-size: 16px;
+    }
 }
 
 @layer components {
     /* Sidebar */
     .sidebar {
-        transition: width 0.2s ease, transform 0.2s ease;
+        transition: width 0.25s ease, transform 0.25s ease;
         border-right: 1px solid rgba(255,255,255,0.06);
+        overflow: visible;
     }
     .sidebar.collapsed {
-        width: 0 !important;
-        padding: 0 !important;
-        overflow: hidden;
+        width: 68px !important;
     }
-    .sidebar.collapsed .sidebar-text {
+    .sidebar.collapsed .sidebar-text,
+    .sidebar.collapsed .sidebar-label,
+    .sidebar.collapsed .sidebar-sublabel,
+    .sidebar.collapsed .sidebar-divider-label,
+    .sidebar.collapsed .user-info {
+        display: none !important;
+    }
+    .sidebar.collapsed .sidebar-nav-item {
+        justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .sidebar.collapsed .sidebar-logo-text {
         display: none;
+    }
+    .sidebar.collapsed .sidebar-logo {
+        justify-content: center;
     }
 
     .sidebar-nav-item {
@@ -40,7 +59,7 @@
     }
 
     .main-content {
-        transition: margin-left 0.2s ease;
+        transition: margin-left 0.25s ease;
     }
 
     @media (max-width: 1023px) {
@@ -123,15 +142,16 @@
         @apply px-4 py-3.5 text-slate-700;
     }
 
-    /* Badges */
+    /* Badges - improved spacing */
     .badge {
-        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+        @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
     }
     .badge-success { @apply bg-emerald-50 text-emerald-700 border border-emerald-200/60; }
     .badge-warning { @apply bg-amber-50 text-amber-700 border border-amber-200/60; }
     .badge-danger  { @apply bg-red-50 text-red-700 border border-red-200/60; }
     .badge-info    { @apply bg-blue-50 text-blue-700 border border-blue-200/60; }
     .badge-neutral { @apply bg-slate-100 text-slate-600 border border-slate-200/60; }
+    .badge-secondary { @apply bg-slate-100 text-slate-600 border border-slate-200/60; }
 
     /* Page Header */
     .page-header {
@@ -170,10 +190,11 @@
     .toast-info    { @apply bg-blue-50 border-blue-200 text-blue-800; }
 }
 
-/* Gradient backgrounds */
-.gradient-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+/* Card hover effect for welcome page */
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.gradient-brand {
-    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
